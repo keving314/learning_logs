@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
@@ -23,7 +23,9 @@ def topics(request):
 @login_required
 def topic(request, topic_id):
     """show a single topic and all it's entries"""
-    topic = Topic.objects.get(id=topic_id)
+    #topic = Topic.objects.get(id=topic_id)
+    #tries to get Topic object, if fails, we get a 500 error
+    topic = get_object_or_404(Topic, id=topic_id)
     #make sure the topic belongs to the correct user
     if topic.owner != request.user:
         raise Http404
