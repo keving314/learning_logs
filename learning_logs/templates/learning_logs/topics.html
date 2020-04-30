@@ -1,0 +1,25 @@
+{% extends "learning_logs/base.html" %}
+
+{% block page_header %}
+    <h1>Topics</h1>
+{% endblock page_header %}
+
+
+
+{% block content %}
+    <ul>
+        {% for topic in topics %}
+{#            We can use just 'topic' here becasue we defined the __str__ method in the class.#}
+{#            <li>{{ topic }}</li> #}
+            <li>
+               <h3> <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a> </h3>
+            </li>
+
+        {% empty %}
+            <h3><li>No topics added yet.</li></h3>
+        {% endfor %}
+    </ul>
+
+    <h3><a href="{% url 'learning_logs:new_topic' %}">Add a new Topic</a></h3>
+
+{% endblock content %}
